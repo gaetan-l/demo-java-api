@@ -3,10 +3,7 @@
 Tutorial for beginners to build a REST API without any framework magic.
 
 - Pure Java language
-- IntelliJ IDE
-- Gradle for dependency management
-- Dependencies:
-  - TODO: add list of dependencies
+- No dependency
 
 ## Chapters
 
