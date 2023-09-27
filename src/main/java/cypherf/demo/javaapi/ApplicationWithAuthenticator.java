@@ -1,5 +1,7 @@
 package cypherf.demo.javaapi;
 
+import com.sun.net.httpserver.BasicAuthenticator;
+import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ import static java.util.stream.Collectors.*;
 /**
  * <a href="https://github.com/piczmar/pure-java-rest-api/blob/step-4/src/main/java/com/consulner/api/Application.java">...</a>
  */
-class Application {
+class ApplicationWithAuthenticator {
 
     public static void main(String[] args) throws IOException {
         System.out.println("Application.main()...");
@@ -27,7 +29,8 @@ class Application {
         // CREATING SERVER
         int serverPort = 8000;
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
-        server.createContext("/api/hello", (exchange -> {
+
+        HttpContext context = server.createContext("/api/hello", (exchange -> {
 
             // CREATING MAPPINGS
             if ("GET".equals(exchange.getRequestMethod())) {
@@ -45,6 +48,16 @@ class Application {
             exchange.close();
         }));
 
+        // ADDING AUTHENTICATOR
+        // "myrealm" is a realm name, a virtual name which can be used to
+        // separate different authentication spaces.
+        context.setAuthenticator(new BasicAuthenticator("myrealm") {
+            @Override
+            public boolean checkCredentials(String user, String pwd) {
+                return user.equals("admin") && pwd.equals("admin");
+            }
+        });
+
         // STARTING SERVER
         server.setExecutor(null); // creates a default executor
         System.out.println("STARTING SERVER...");
@@ -58,11 +71,9 @@ class Application {
         System.out.println();
         System.out.println("Try the following requests:");
         System.out.println("  curl -v http://localhost:8000/api/hello");
-        System.out.println("    ↳ Implicit GET request without parameters, should return 200 OK + content \"Hello Anonymous!\"");
-        System.out.println("  curl -v http://localhost:8000/api/hello?name=Toto");
-        System.out.println("    ↳ Implicit GET request with 'name' parameter, should return 200 OK + content \"Hello Toto!\"");
-        System.out.println("  curl -v -X POST http://localhost:8000/api/hello");
-        System.out.println("    ↳ POST request, should return 405 Method Not Allowed");
+        System.out.println("    ↳ Request without authentication, should return 401 Unauthorized");
+        System.out.println("  curl -v http://localhost:8000/api/hello -H 'Authorization: Basic YWRtaW46YWRtaW4='");
+        System.out.println("    ↳ Request with authentication, (\"YWRtaW46YWRtaW4=\" is \"admin:admin\" encoded in Base64), should return 200 OK ");
     }
 
     public static Map<String, List<String>> splitQuery(String query) {
