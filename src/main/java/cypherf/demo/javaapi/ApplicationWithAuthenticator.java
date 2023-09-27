@@ -19,7 +19,11 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.*;
 
 /**
- * <a href="https://github.com/piczmar/pure-java-rest-api/blob/step-4/src/main/java/com/consulner/api/Application.java">...</a>
+ * API with method and parameters mapping plus authentication
+ * @author Marcin Piczkowski
+ * @see <a href="https://medium.com/consulner/framework-less-rest-api-in-java-dd22d4d642fa">
+ *     Framework-less REST API in Java</a>
+ * @see <a href="https://github.com/piczmar/pure-java-rest-api"/>
  */
 class ApplicationWithAuthenticator {
 
@@ -27,19 +31,19 @@ class ApplicationWithAuthenticator {
         System.out.println("Application.main()...");
 
         // CREATING SERVER
-        int serverPort = 8000;
-        HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
+        final int serverPort = 8000;
+        final HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
 
-        HttpContext context = server.createContext("/api/hello", (exchange -> {
+        final HttpContext context = server.createContext("/api/hello", (exchange -> {
 
             // CREATING MAPPINGS
             if ("GET".equals(exchange.getRequestMethod())) {
-                Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
-                String noNameText = "Anonymous";
-                String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-                String respText = String.format("Hello %s!", name);
+                final Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
+                final String noNameText = "Anonymous";
+                final String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
+                final String respText = String.format("Hello %s!", name);
                 exchange.sendResponseHeaders(200, respText.getBytes().length);
-                OutputStream output = exchange.getResponseBody();
+                final OutputStream output = exchange.getResponseBody();
                 output.write(respText.getBytes());
                 output.flush();
             } else {
