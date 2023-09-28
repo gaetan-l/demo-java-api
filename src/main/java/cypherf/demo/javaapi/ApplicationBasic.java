@@ -66,6 +66,7 @@ class ApplicationBasic {
         System.out.println("  curl -v http://localhost:8000/api/hello?name=Toto");
         System.out.println("    ↳ Implicit GET request with 'name' parameter, should return 200 OK + content \"Hello Toto!\"");
         System.out.println("  curl -v -X POST http://localhost:8000/api/hello");
+        System.out.println("  curl.exe -v -X POST http://localhost:8000/api/hello (if not in PowerShell)");
         System.out.println("    ↳ POST request, should return 405 Method Not Allowed");
     }
 

@@ -1,19 +1,16 @@
-# REST API in pure Java
+# Minimal REST API in pure Java
 
-Tutorial for beginners to build a REST API without any framework magic.
+Minimal working code for a deployable API in pure Java language
 
-- Pure Java language
+- Java 20
+- [IntelliJ Idea 2023.2.2 Community Edition](https://www.jetbrains.com/idea/download/)
+- Gradle 8.3 (Version 8.3 is required to work with Java 20, by default, ItelliJ included version 8.2, to upgrade to 8.3, use the following command in a terminal: `.\gradlew wrapper --gradle-version 8.3`)
 - No dependency
-
-## Chapters
-
-1. Basic mapping with method and parameters catching (class ApplicationBasic)
-2. Authentication (ApplicationWithAuthentication)
 
 ## How to use
 
 1. Clone git project
-2. Run one of the classes mentioned above
+2. Run either ApplicationBasic or ApplicationWithAuthentication main method
 3. Follow the instructions displayed on the console
 
 ## Credits

@@ -77,6 +77,7 @@ class ApplicationWithAuthenticator {
         System.out.println("  curl -v http://localhost:8000/api/hello");
         System.out.println("    ↳ Request without authentication, should return 401 Unauthorized");
         System.out.println("  curl -v http://localhost:8000/api/hello -H 'Authorization: Basic YWRtaW46YWRtaW4='");
+        System.out.println("  curl.exe -v http://localhost:8000/api/hello -H 'Authorization: Basic YWRtaW46YWRtaW4=' (if not in PowerShell)");
         System.out.println("    ↳ Request with authentication, (\"YWRtaW46YWRtaW4=\" is \"admin:admin\" encoded in Base64), should return 200 OK ");
     }
 
