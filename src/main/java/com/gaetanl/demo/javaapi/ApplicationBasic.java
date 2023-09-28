@@ -1,4 +1,4 @@
-package cypherf.demo.javaapi;
+package com.gaetanl.demo.javaapi;
 
 import com.sun.net.httpserver.HttpServer;
 
