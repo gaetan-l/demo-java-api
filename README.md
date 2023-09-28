@@ -10,7 +10,7 @@ Minimal working code for a deployable API in pure Java language
 ## How to use
 
 1. Clone git project
-2. Run either ApplicationBasic or ApplicationWithAuthentication main method
+2. Run either `ApplicationBasic` or `ApplicationWithAuthentication` main method
 3. Follow the instructions displayed on the console
 
 ## Credits
